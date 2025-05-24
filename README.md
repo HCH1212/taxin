@@ -28,6 +28,30 @@
   - 对每一个请求使用jeager实现链路追踪，至少要在tag中记录用户id，方便通过user_id查询。
   -  需要有方法查看你的go执行性能（比如使用 pprof）
   -  写一个部署脚本，可以是shell，python，makefile。能通过脚本直接部署你的程序。（选作）
-5. 关于代码提交&时间限制
-  - 可以直接给git或者gitee地址 （代码中注意设置 git ignore 文件，不要把重要的key泄漏）
-  - 时间限制为48小时，如果时间不充分，可以联系增加答题时间。
+
+## 启动
+
+### 1. 本地
+安装好中间件后，在.env文件中添加环境变量TOKEN_SECRET和GO_ENV，然后运行：
+```
+go run cmd/main.go
+```
+### 2. docker-compose
+```
+make docker-compose-up
+```
+### 测试
+```
+go run test/client.go
+```
+
+## 一些可观测
+
+### 1. 链路追踪
+```
+open http://localhost:16686/
+```
+
+### 2. 性能分析
+makefile包中pprof相关
+
