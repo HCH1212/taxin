@@ -32,7 +32,8 @@
 ## 启动
 
 ### 1. 本地
-安装好中间件后，在.env文件中添加环境变量TOKEN_SECRET和GO_ENV，然后运行：
+- 安装相关中间件后
+- 新建.env文件，添加环境变量TOKEN_SECRET和GO_ENV（dev），然后运行：
 ```
 go run cmd/main.go
 ```
@@ -40,7 +41,7 @@ go run cmd/main.go
 ```
 make docker-compose-up
 ```
-### 测试
+### 客户端测试
 ```
 go run test/client.go
 ```
@@ -54,4 +55,7 @@ open http://localhost:16686/
 
 ### 2. 性能分析
 makefile包中pprof相关
+
+## 注意
+由于Embedding部分使用的是ollama本地模型，没有本地模型需要先拉取，或修改代码调用api
 
