@@ -1,0 +1,11 @@
+sql:
+  dsn: "postgres://admin:admin@postgres:5432/taxin?sslmode=disable"
+
+redis:
+  address: "redis:6379"
+  username: ""
+  password: ""
+  db: 0
+
+jeager:
+  address: "jaeger:4317"

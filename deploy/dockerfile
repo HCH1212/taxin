@@ -1,0 +1,26 @@
+# 使用官方的 Go 基础镜像
+FROM golang:1.24.2-alpine
+
+# 设置工作目录
+WORKDIR /app
+
+# 代理
+ENV GOPROXY=https://goproxy.cn,direct
+
+# 复制项目文件到工作目录
+COPY . .
+
+# 下载项目依赖
+RUN go mod download
+
+# 构建可执行文件
+RUN go build -o main cmd/main.go
+
+# 暴露 gRPC 服务端口
+EXPOSE 50052
+
+# 暴露 pprof 服务端口
+EXPOSE 6060
+
+# 运行可执行文件
+CMD ["./main"]

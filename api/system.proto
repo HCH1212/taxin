@@ -1,0 +1,17 @@
+syntax="proto3";
+
+package system;
+
+option go_package="/system";
+
+service SystemService {
+  rpc SendFile (SendFileReq) returns (stream SendFileResp); // 读取一个本地文件（可以是音频，视频，文本）以流的形式返回
+}
+
+message SendFileReq {
+  string file_path = 1;
+}
+
+message SendFileResp {
+  bytes content = 1;
+}
