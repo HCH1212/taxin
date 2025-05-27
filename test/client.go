@@ -36,6 +36,8 @@ func main() {
 
 	// 测试 SystemService
 	testSystemService(ctx, conn)
+
+	fmt.Println("All tests completed successfully")
 }
 
 func testUserService(ctx context.Context, conn *grpc.ClientConn) {

@@ -8,4 +8,4 @@ redis:
   db: 0
 
 jeager:
-  address: "jaeger:4317"
+  address: "jaeger-all-in-one:4317"

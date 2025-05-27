@@ -48,7 +48,7 @@ func main() {
 			newGRPCServer,
 		),
 		// 触发服务器启动
-		fx.Invoke(func(*grpc.Server) {}),
+		fx.Invoke(func(grpc *grpc.Server, tp func(context.Context) error) {}), // 添加对 tp 的依赖
 		// 禁用日志
 		fx.NopLogger,
 	)
@@ -105,6 +105,7 @@ func newTracerProvider(lc fx.Lifecycle) (func(context.Context) error, error) {
 
 	// 设置全局的追踪传播器
 	otel.SetTextMapPropagator(propagation.NewCompositeTextMapPropagator(propagation.TraceContext{}, propagation.Baggage{}))
+	otel.SetTracerProvider(tp) // 设置全局 TracerProvider
 
 	// 注册生命周期钩子
 	lc.Append(fx.Hook{

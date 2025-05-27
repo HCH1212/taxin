@@ -17,6 +17,8 @@ import (
 
 // InitTracer 初始化 OpenTelemetry 追踪器
 func InitTracer(ctx context.Context, serviceName string) (*sdktrace.TracerProvider, error) {
+	log.Println(config.GetConf().Jeager.Address)
+
 	// 连接 Jaeger OTLP 端口
 	conn, err := grpc.DialContext(
 		ctx,
