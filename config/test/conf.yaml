@@ -9,3 +9,7 @@ redis:
 
 jeager:
   address: "localhost:4317"
+
+ollama:
+  address: "http://127.0.0.1:11434/api/embeddings"
+  model: "chroma/all-minilm-l6-v2-f32:latest"

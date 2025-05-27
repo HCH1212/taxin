@@ -7,7 +7,9 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 
+	"github.com/HCH1212/taxin/config"
 	"github.com/pgvector/pgvector-go"
 )
 
@@ -16,12 +18,21 @@ import (
 // GenerateEmbeddingForLikes 根据文本生成词嵌入向量
 func GenerateEmbeddingForLikes(ctx context.Context, likes []string) (pgvector.Vector, error) {
 	var allEmbeddings []float32
-	baseURL := "http://localhost:11434/api/embeddings"
+	var baseURL string
+	var model string
+
+	if os.Getenv("GO_ENV") == "" {
+		baseURL = "http://127.0.0.1:11434/api/embeddings"
+		model = "chroma/all-minilm-l6-v2-f32:latest"
+	} else {
+		baseURL = config.GetConf().Ollama.Address
+		model = config.GetConf().Ollama.Model
+	}
 
 	for _, like := range likes {
 		// 构建请求体
 		requestBody := map[string]string{
-			"model":  "chroma/all-minilm-l6-v2-f32:latest",
+			"model":  model,
 			"prompt": like,
 		}
 		jsonBody, err := json.Marshal(requestBody)

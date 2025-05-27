@@ -52,7 +52,7 @@ func testUserService(ctx context.Context, conn *grpc.ClientConn) {
 	registerReq := &pb_user.RegisterReq{
 		Password: "testpassword",
 		Like:     []string{"reading", "swimming"},
-		Username: "testuser2",
+		Username: "testuser7",
 	}
 	registerResp, err := client.Register(ctx, registerReq)
 	if err != nil {
@@ -82,11 +82,11 @@ func testUserService(ctx context.Context, conn *grpc.ClientConn) {
 		log.Fatalf("Failed to get user info: %v", err)
 	}
 	fmt.Printf("User ID: %s\n", userInfoResp.UserId)
-	fmt.Printf("Likes: %v\n", userInfoResp.Like)
-	fmt.Printf("Like Embedding: %v\n", userInfoResp.LikeEmbedding)
-	fmt.Printf("Create At: %s\n", userInfoResp.CreateAt)
-	fmt.Printf("Update At: %s\n", userInfoResp.UpdateAt)
-	fmt.Printf("Username %s\n", userInfoResp.Username)
+	// fmt.Printf("Likes: %v\n", userInfoResp.Like)
+	// fmt.Printf("Like Embedding: %v\n", userInfoResp.LikeEmbedding)
+	// fmt.Printf("Create At: %s\n", userInfoResp.CreateAt)
+	// fmt.Printf("Update At: %s\n", userInfoResp.UpdateAt)
+	// fmt.Printf("Username %s\n", userInfoResp.Username)
 
 	// 添加自定义标签和事件
 	span.SetAttributes(attribute.String("user_id", registerResp.UserId))

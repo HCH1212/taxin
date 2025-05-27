@@ -22,6 +22,12 @@ type Config struct {
 	SQL    SQL    `yaml:"sql"`
 	Redis  Redis  `yaml:"redis"`
 	Jeager Jeager `yaml:"jeager"`
+	Ollama Ollama `yaml:"ollama"`
+}
+
+type Ollama struct {
+	Address string `yaml:"address"`
+	Model string `yaml:"model"`
 }
 
 type Jeager struct {

@@ -79,16 +79,17 @@ func (u *UserService) Register(ctx context.Context, req *pb.RegisterReq) (*pb.Re
 		Like:          datatypes.JSON(likeJSON),
 		LikeEmbedding: embedding,
 	}
-	// 存储注册信息到redis
-	err = dao.RedisClient.Set(ctx, redisKey, userID, time.Hour*24).Err()
-	if err != nil {
-		span.SetStatus(codes.Error, "store register info to redis failed")
-		return nil, err
-	}
+	// 先操作数据库再操作redis，防止出现数据不一致的情况
 	// 存储用户信息到数据库
 	err = model.CreateUser(dao.DB, &user)
 	if err != nil {
 		span.SetStatus(codes.Error, "create user failed")
+		return nil, err
+	}
+	// 存储注册信息到redis
+	err = dao.RedisClient.Set(ctx, redisKey, userID, time.Hour*24).Err()
+	if err != nil {
+		span.SetStatus(codes.Error, "store register info to redis failed")
 		return nil, err
 	}
 
